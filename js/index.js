@@ -2,65 +2,60 @@ require('babel-polyfill');
 import React from 'react';
 import ReactDOM  from 'react-dom';
 
-export class Listcontainer extends React.Component {
-    constructor(props) {
-        super(props);
+class ListContainer extends React.Component {
+    constructor() {
+        super();
         this.state = {
-            changed: false,
-            text: "text placeholder",
             cards: ['cards[] placeholder ', 'cards[] placeholder 2 ']
         };
-        this.onAddInputChanged = this.onAddInputChanged.bind(this);
+        this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
-    onAddInputChanged(){
-        this.setState({
-            changed: true
-        });
-    }
-
-    onFormSubmit(e, textInput){
-        e.preventDefault();
-        console.log(textInput);
+    onFormSubmit(textInput){
         this.setState({
             cards: [...this.state.cards, textInput]
         });
     }
 
     render() {
-
         return (
             <div className="listcontainer">
                 <List 
                  cards={this.state.cards} 
-                 onAddInputChanged={this.onAddInputChanged} 
                  onFormSubmit={this.onFormSubmit} 
                 />
-                <form id="addCard" onSubmit={(e) => this.onFormSubmit(e, this.textInput.value)}>
-                    <input 
-                        onChange={this.onAddInputChanged} 
-                        placeholder="new card text" 
-                        ref={(input) => this.textInput = input }
-                    />
-                    <button type="submit">Submit</button>
-                </form>
+                
             </div>
         ); // return
     } // render
 }
 
-export function List(props) {
-	const cards=props.cards.map(function(card, i){
-        return <Card text={card} key={i} />
-    })
+function List(props) {
+	let textInput;
+	const cards = props.cards.map((card, i) => <Card text={card} key={i} /> );
+
+	const onSubmitCustom = e => {
+	    e.preventDefault()
+	    const text = textInput.value
+	    if (text) {
+	      props.onFormSubmit(text)
+	    }
+	  }
+    
 	return (
         <div className="list">
         	{cards} 
+        	<form id="addCard" onSubmit={onSubmitCustom}>
+                <input placeholder="new card text" 
+                    ref={input => textInput = input }
+                />
+                <button type="submit">Submit</button>
+            </form>
         </div>
     ); // return
 }
 
-export function Card(props){
+function Card(props){
 	return (
 		<div className="card">
              <p>{props.text}</p>
@@ -70,5 +65,5 @@ export function Card(props){
 
 
 document.addEventListener('DOMContentLoaded', () =>
-    ReactDOM.render(<Listcontainer />, document.getElementById('target'))
+    ReactDOM.render(<ListContainer />, document.getElementById('target'))
 );
