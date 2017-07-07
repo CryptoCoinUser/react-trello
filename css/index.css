@@ -1,7 +1,12 @@
-.listOfCards{border:1px solid #000;
-float:left;
-margin:1em;
-padding:1em;}
-.card{background-color: #ccc;
+.list{
+	border:1px solid #000;
+	float:left;
+	margin:1em;
 	padding:1em;
-margin:0 0 1em 0;}
+}
+.card{
+	background-color: #ccc;
+	padding:1em;
+	display: block;
+	margin:0 0 1em 0;
+}

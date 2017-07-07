@@ -1,13 +1,11 @@
-// ./js/components/card.js
-
 import React from 'react';
 
 
-/* bottom of 1.1.4 */
 export default function Card(props){
+    //console.log(props);
 	return (
 		<div className="cardMicroManaged">
-             <h3>Card {props.num + 1} of {props.len}:</h3>
+             <h3>Card {props.cardNum + 1} of {props.cardsToPrint}:</h3>
              <p>{props.proptext}</p>
 		</div>
 	); // return

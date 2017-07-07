@@ -1,7 +1,8 @@
 // js/components/board.js
 import React from 'react';
-import List from './list';
+import Listcontainer from './listcontainer';
 
+/*
 export default function Board(props) {
     const cardsText = ["card one from cardsText array in board", "card TWO from cardsText array in board"];
     const cardsText2 = ["card one2 in 2nd list", "card two2 in 2nd list"];
@@ -19,22 +20,53 @@ export default function Board(props) {
         </div>
     );
 }
+*/
 
 
-
-/* 
+/*  */
 export default class Board extends React.Component {
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         changed: false,
+    //         textEntered: "",
+    //         cards: []
+    //     };
+    //     this.onAddInputChanged = this.onAddInputChanged.bind(this);
+    // }
+
+    // onAddInputChanged(){
+    //     console.log('onAddInputChanged');
+    //     console.log(this.state.changed);
+    //     this.setState({
+    //         changed: true
+    //     });
+    //     console.log(this.state.changed);
+    // }
+
+
+
+
+    // onFormSubmit(e, textInput){
+    //     e.preventDefault();
+    //     console.log('textInput ' + textInput);
+    // }
+
+
     render() {
         const lists = [];
         for (let i=0; i<3; i++) {
-            lists.push(<List listNum={i} key={i} />);
+            lists.push(<Listcontainer  
+                    listNum={i} key={i} 
+                    textEntered = "board placeholder"
+                    cards = {["board placeholder 1", "board placehoder 2"]}
+                />);
         }
         return (
             <div className="listOfLists">
-                <h2>This is a Board</h2>
+                <h2>{this.props.board_title}</h2>
                 {lists}
             </div>
         );
     }
 }
-*/
