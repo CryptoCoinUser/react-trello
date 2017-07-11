@@ -2,6 +2,8 @@ require('babel-polyfill');
 import React from 'react';
 import ReactDOM  from 'react-dom';
 
+import Card from './components/card';
+
 class BoardContainer extends React.Component{
 	constructor() {
         super();
@@ -144,19 +146,6 @@ function List(props) {
              </button>
         </div>
     ); // return
-}
-
-function Card(props){
-	return (
-		<div className="card">
-             <p>{props.text}</p>
-             <button 
-	             onClick={() => props.removeThisCard(props.cardIndex)}
-	             >
-	             Remove Card
-             </button>
-		</div>
-	); // return
 }
 
 
