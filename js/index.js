@@ -3,6 +3,8 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 
 import Card from './components/card';
+import List from './components/list';
+import ListContainer from './components/listcontainer';
 
 class BoardContainer extends React.Component{
 	constructor() {
@@ -43,7 +45,7 @@ class BoardContainer extends React.Component{
     } // render
 }
 
-function Board(props){
+export function Board(props){
 	let textInput;
 	const lists = props.lists.map((listTitle, i) => <ListContainer title={listTitle} key={i} removeThisList={props.removeThisList} listIndex={i} /> );
 
@@ -70,83 +72,9 @@ function Board(props){
     ); // return
 }
 
-class ListContainer extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            cards: ['cards[] placeholder ', 'cards[] placeholder 2']
-        };
-        this.onFormSubmit = this.onFormSubmit.bind(this);
-        this.removeThisCard = this.removeThisCard.bind(this);
-    }
 
-    onFormSubmit(textInput){
-    	console.log('ListContainer textInput');
-    	console.log(textInput);
-        this.setState({
-            cards: [...this.state.cards, textInput]
-        });
-    }
 
-    removeThisCard(cardIndex){
-    	console.log('remove this card ' + cardIndex);
-    	this.setState({
-    		cards: [
-    			...this.state.cards.slice(0, cardIndex),
-    			...this.state.cards.slice(cardIndex+1)
-    		]
-    	})
-    }
 
-    render() {
-        return (
-            <div className="listcontainer">
-                <List
-                 title={this.props.title || "list title"} 
-                 cards={this.state.cards} 
-                 onFormSubmit={this.onFormSubmit} 
-                 removeThisCard={this.removeThisCard} 
-                 removeThisList={this.props.removeThisList} 
-                 listIndex={this.props.listIndex}
-                />
-                
-            </div>
-        ); // return
-    } // render
-}
-
-function List(props) {
-	let textInput;
-	const cards = props.cards.map((card, i) => <Card text={card} key={i} removeThisCard={props.removeThisCard} cardIndex={i}  /> );
-
-	const onSubmitCard = e => {
-	    e.preventDefault()
-	    const text = textInput.value
-	    if (text) {
-	      props.onFormSubmit(text)
-	    } else {
-	      props.onFormSubmit('no text');	
-	    }
-	  }
-    
-	return (
-        <div className="list">
-        	<h2>{props.title}</h2>
-        	{cards} 
-        	<form id="addCard" onSubmit={onSubmitCard}>
-                <input placeholder="new card text" 
-                    ref={input => textInput = input }
-                />
-                <button type="submit">Add Card</button>
-            </form>
-            <button 
-	             onClick={() => props.removeThisList(props.listIndex)}
-	             >
-	             Remove List
-             </button>
-        </div>
-    ); // return
-}
 
 
 document.addEventListener('DOMContentLoaded', () =>
